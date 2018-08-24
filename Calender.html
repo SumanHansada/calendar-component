@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="Content/bootstrap.min.css">
+    <script src="Scripts/jquery-2.0.3.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <style type="text/css">
+        .cms-calendar {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+            .cms-calendar tr td {
+                display: inline-block;
+                height: 140px;
+                min-width: 140px;
+                width: 13.80%;
+                padding: 2px;
+                border: 1px solid #e6e6e6;
+            }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var julDates = getMonthDays(2018, 6);
+            var augDates = getMonthDays(2018, 7);
+            var septDates = getMonthDays(2018, 9);
+
+            var monthEvents = [];
+            monthEvents.push({
+                name: 'clientVisit',
+                dates: [
+                    { date: new Date(2018, 6, 2), starttime: 9.30, endtime: 18.00 },
+                    { date: new Date(2018, 6, 3), starttime: 9.30, endtime: 16.00 },
+                ]
+            });
+            monthEvents.forEach(function (event) {
+                event.dates.forEach(function (d) {
+                    var evDate = julDates.filter(function (a) { a.date === d.date })[0];
+                    //evDate.events.push
+                    //push events to array
+                });
+            });
+
+        });
+
+        getMonthDays = function (year, month) {
+            debugger;
+            var d = new Date(year, month, 1);
+            if (d.getDay() > 0) { d.setDate(d.getDate() + (-1 * d.getDay())); }
+            var monthDates = [];
+            var weekDates = [];
+            while (d.getMonth() <= month) {
+                if (d.getDay() === 0) {
+                    if (weekDates.length) {
+                        monthDates.push(weekDates);
+                    }
+                    weekDates = [];
+                }
+                weekDates.push({
+                    mtype: d.getMonth() < month ? 'prev' : ( d.getMonth() > month ? 'next' : 'curr' ),
+                    date: new Date(d),
+                    events: []
+                });
+                d.setDate(d.getDate() + 1);
+            }
+            var weekEndDate = new Date(d.getFullYear(), d.getMonth(), d.getDate() + (6 - d.getDay()));
+            while (d <= weekEndDate) {
+                weekDates.push(new Date(d));
+                d.setDate(d.getDate() + 1);
+            } 
+            monthDates.push(weekDates);
+            return monthDates;
+        }
+
+    </script>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <h1>Calendar</h1>
+        <div class="row">
+            <div class="col-xs-12">
+                <table class="table cms-calendar">
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
